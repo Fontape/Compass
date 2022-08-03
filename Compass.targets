@@ -12,8 +12,8 @@
     <!-- This is the global version and is used for all projects that don't have a version -->
     <Version>2.1.0</Version>
 
-    <Company>Runic Library</Company>
-    <Copyright>Copyright © Runic Library 2020 - $([System.DateTime]::Now.ToString("yyyy"))</Copyright>
+    <Company>Fontape</Company>
+    <Copyright>Copyright © Fontape 2022 - $([System.DateTime]::Now.ToString("yyyy"))</Copyright>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)' == 'Release'">

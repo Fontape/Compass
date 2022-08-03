@@ -64,9 +64,7 @@ namespace Compass.API.Features
 
             for (var i = 0; i < 60; i++) lineBuilder.Append("|");
 
-            var longSpaceBuilder = new StringBuilder();
-
-            for (var i = 0; i < 10; i++) longSpaceBuilder.Append(" ");
+            var longSpaceBuilder = new string(' ', 10);
 
             return $"<b><size=24>{GetCardinalDirection(degrees)}" +
                    $"\n{lineBuilder}</size></b>" +
