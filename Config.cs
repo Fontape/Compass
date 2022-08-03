@@ -6,7 +6,7 @@ namespace Compass
 {
     public class Config : IConfig
     {
-        [Description("Indicates plugin enabled or not.")]
+        [Description("Indicates plugin is enabled or not.")]
         public bool IsEnabled { get; set; } = true;
 
         [Description("Setups the compass visibility. Allowed values: Squads, FirearmHolders, Humans")]
