@@ -17,7 +17,6 @@ namespace Compass
 
         public override string Prefix => "compass";
 
-
         public override void OnEnabled()
         {
             CompassVisibilityMode = Config.CompassMode;

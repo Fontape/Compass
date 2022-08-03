@@ -33,28 +33,19 @@ namespace Compass.API.Features
             }
 
             var viewerRotation = (int)_compassViewer.Rotation.y;
-
             _compassViewer.Broadcast(1, $"{DrawCompassLine(viewerRotation)}",
                 Broadcast.BroadcastFlags.Monospaced, true);
         }
 
         public void DestroySelf() => Destroy(this);
 
-        public int GetOverflowedDegrees(int degrees)
+        public int GetOverflowedDegrees(int degrees) => degrees switch
         {
-            if (degrees < 0)
-            {
-                return 360 - degrees;
-            }
-
-            if (degrees > 360)
-            {
-                return degrees - 360;
-            }
-
-            return degrees;
-        }
-
+            < 0 => 360 - degrees,
+            > 360 => degrees - 360,
+            _ => degrees
+        };
+        
         private string GetCardinalDirection(int degrees) => degrees switch
         {
             >= 0 and <= 90 => "СЕВЕР",
