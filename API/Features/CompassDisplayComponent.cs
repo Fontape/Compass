@@ -1,8 +1,8 @@
-﻿using Exiled.API.Features;
-using Mirror;
-using System;
+﻿using System;
 using System.Text;
 using Compass.API.Enums;
+using Exiled.API.Features;
+using Mirror;
 using UnityEngine;
 
 namespace Compass.API.Features
@@ -12,16 +12,16 @@ namespace Compass.API.Features
         private Player _compassViewer;
         private float _secondsToNextTick;
 
-        public void Awake()
-        {
-            _compassViewer = Player.Get(gameObject);
-        }
+        public void Awake() => _compassViewer = Player.Get(gameObject);
 
         public void FixedUpdate()
         {
             if (_compassViewer.IsDead ||
-                (CompassPlugin.CompassVisibilityMode == CompassVisibilityMode.FirearmHolders && _compassViewer.CurrentItem?.IsWeapon == false) ||
-                (CompassPlugin.CompassVisibilityMode == CompassVisibilityMode.Squads && _compassViewer.Role.Team != Team.MTF && _compassViewer.Role.Team != Team.CHI))
+                (CompassPlugin.CompassVisibilityMode == CompassVisibilityMode.FirearmHolders &&
+                 _compassViewer.CurrentItem?.IsWeapon == false) ||
+                (CompassPlugin.CompassVisibilityMode == CompassVisibilityMode.Squads &&
+                 _compassViewer.Role.Team != Team.MTF &&
+                 _compassViewer.Role.Team != Team.CHI))
             {
                 return;
             }
@@ -45,7 +45,7 @@ namespace Compass.API.Features
             > 360 => degrees - 360,
             _ => degrees
         };
-        
+
         private string GetCardinalDirection(int degrees) => degrees switch
         {
             >= 0 and <= 90 => "СЕВЕР",
@@ -62,17 +62,11 @@ namespace Compass.API.Features
 
             var lineBuilder = new StringBuilder();
 
-            for (var i = 0; i < 60; i++)
-            {
-                lineBuilder.Append("|");
-            }
+            for (var i = 0; i < 60; i++) lineBuilder.Append("|");
 
             var longSpaceBuilder = new StringBuilder();
 
-            for (var i = 0; i < 10; i++)
-            {
-                longSpaceBuilder.Append(" ");
-            }
+            for (var i = 0; i < 10; i++) longSpaceBuilder.Append(" ");
 
             return $"<b><size=24>{GetCardinalDirection(degrees)}" +
                    $"\n{lineBuilder}</size></b>" +

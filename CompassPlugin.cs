@@ -1,6 +1,4 @@
-﻿using System;
-using Compass.API.Enums;
-using Exiled.API.Enums;
+﻿using Compass.API.Enums;
 using Exiled.API.Features;
 
 namespace Compass

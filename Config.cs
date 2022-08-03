@@ -1,9 +1,10 @@
 ﻿using System.ComponentModel;
 using Compass.API.Enums;
+using Exiled.API.Interfaces;
 
 namespace Compass
 {
-    public class Config : Exiled.API.Interfaces.IConfig
+    public class Config : IConfig
     {
         [Description("Indicates plugin enabled or not.")]
         public bool IsEnabled { get; set; } = true;
