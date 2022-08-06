@@ -36,12 +36,10 @@ namespace Compass.API.Features
                 true);
         }
 
-        public void DestroySelf() => Destroy(this);
-
         private static string DrawCompassLine(int degrees)
         {
-            int leftDegrees = GetOverflowedDegrees(degrees - 45);
-            int rightDegrees = GetOverflowedDegrees(degrees + 45);
+            int leftDegrees = (degrees - 45).GetOverflowedDegrees();
+            int rightDegrees = (degrees + 45).GetOverflowedDegrees();
 
             var lineBuilder = new StringBuilder();
 
@@ -52,26 +50,10 @@ namespace Compass.API.Features
 
             var longSpaceBuilder = new string(' ', 10);
 
-            return $"<b><size=24>{GetCardinalDirection(degrees)}" +
+            return $"<b><size=24>{degrees.GetCardinalDirection()}" +
                    $"\n{lineBuilder}</size></b>" +
                    $"\n<size=32><color=#ccc>{leftDegrees}°</color></size>{longSpaceBuilder}<b>{degrees}°</b>{longSpaceBuilder}<size=32><color=#ccc>{rightDegrees}°</color></size>";
         }
-
-        public static int GetOverflowedDegrees(int degrees) => degrees switch
-        {
-            < 0 => 360 - degrees,
-            > 360 => degrees - 360,
-            _ => degrees
-        };
-
-        private static string GetCardinalDirection(int degrees) => degrees switch
-        {
-            >= 0 and <= 90 => "СЕВЕР",
-            > 90 and <= 180 => "ВОСТОК",
-            > 180 and <= 270 => "ЮГ",
-            > 270 and <= 360 => "ЗАПАД",
-            _ => throw new InvalidOperationException()
-        };
 
         private bool IsCompassEnabled()
         {

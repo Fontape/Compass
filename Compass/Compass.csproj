@@ -12,13 +12,16 @@
   </ItemGroup>
 
   <ItemGroup>
-
     <PackageReference Include="EXILED" Version="*" />
     <Reference Include="CommandSystem.Core" HintPath="$(SCP_Files)\CommandSystem.Core.dll" Private="false" />
     <Reference Include="Mirror" HintPath="$(SCP_Files)\Mirror.dll" Private="false" />
     <Reference Include="UnityEngine.CoreModule" HintPath="$(SCP_Files)\UnityEngine.CoreModule.dll" Private="false" />
     <Reference Include="NorthwoodLib" HintPath="$(SCP_Files)\NorthwoodLib.dll" Private="false" />
-
   </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="xcopy &quot;$(TargetPath)&quot; &quot;$(EXILED_Plugins)&quot; /y" />
+	<Exec Command="xcopy &quot;$(TargetPath)&quot; &quot;..\CompassUnitTests\bin\Debug\net6.0\&quot; /y" />
+  </Target>
 
 </Project>
