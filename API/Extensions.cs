@@ -4,7 +4,7 @@ using Exiled.API.Features;
 
 namespace Compass.API
 {
-    internal static class Extentions
+    internal static class Extensions
     {
         public static CompassDisplayComponent AddCompassDisplayComponent(this Player player)
         {
