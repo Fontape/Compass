@@ -6,8 +6,15 @@ namespace Compass.API
 {
     internal static class Extentions
     {
-        public static CompassDisplayComponent AddCompassDisplayComponent(this Player player) =>
-            player.GameObject.AddComponent<CompassDisplayComponent>();
+        public static CompassDisplayComponent AddCompassDisplayComponent(this Player player)
+        {
+            if (player.GameObject.GetComponent<CompassDisplayComponent>() != null)
+            {
+                throw new InvalidOperationException($"'{nameof(CompassDisplayComponent)}' is already attached to player");
+            }
+
+            return player.GameObject.AddComponent<CompassDisplayComponent>();
+        }
 
         public static void RemoveCompassDisplayComponent(this Player player)
         {
