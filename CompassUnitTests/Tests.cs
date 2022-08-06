@@ -10,7 +10,7 @@ namespace CompassUnitTests
         {
             int handledDegrees = 489495495.GetOverflowedDegrees();
 
-            IsTrue(IsHandledDegreesValid(handledDegrees), $"{handledDegrees}");
+            That(IsHandledDegreesValid(handledDegrees), Is.True, $"{handledDegrees}");
         }
 
         [Test]
@@ -18,7 +18,7 @@ namespace CompassUnitTests
         {
             int handledDegrees = (-93939393).GetOverflowedDegrees();
 
-            IsTrue(IsHandledDegreesValid(handledDegrees), $"{handledDegrees}");
+            That(IsHandledDegreesValid(handledDegrees), Is.True, $"{handledDegrees}");
         }
 
         [Test]
@@ -26,7 +26,7 @@ namespace CompassUnitTests
         {
             int handledDegrees = 360.GetOverflowedDegrees();
 
-            IsTrue(IsHandledDegreesValid(handledDegrees), $"{handledDegrees}");
+            That(IsHandledDegreesValid(handledDegrees), Is.True, $"{handledDegrees}");
         }
 
         private static bool IsHandledDegreesValid(int handledDegrees) =>
