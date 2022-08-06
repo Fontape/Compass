@@ -11,7 +11,7 @@ namespace Compass
 
         public override string Name => "CompassPlugin";
 
-        public override string Author => "FakeMan";
+        public override string Author => "Fontape";
 
         public override string Prefix => "compass";
 
