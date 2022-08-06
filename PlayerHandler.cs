@@ -10,6 +10,6 @@ namespace Compass
 
         public void UnSubscribeEvents() => PlayerEvents.Verified -= OnPlayerVerified;
 
-        private void OnPlayerVerified(VerifiedEventArgs ev) => ev.Player.AddCompassDisplayComponent();
+        private static void OnPlayerVerified(VerifiedEventArgs ev) => ev.Player.AddCompassDisplayComponent();
     }
 }
