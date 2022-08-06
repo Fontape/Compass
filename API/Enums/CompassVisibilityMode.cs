@@ -2,7 +2,7 @@
 {
     public enum CompassVisibilityMode
     {
-        Squads,
+        SquadMembers,
         FirearmHolders,
         Humans
     }

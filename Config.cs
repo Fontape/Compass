@@ -9,7 +9,7 @@ namespace Compass
         [Description("Indicates plugin is enabled or not.")]
         public bool IsEnabled { get; set; } = true;
 
-        [Description("Setups the compass visibility. Allowed values: Squads, FirearmHolders, Humans")]
+        [Description("Setups the compass visibility. Allowed values: SquadMembers, FirearmHolders, Humans")]
         public CompassVisibilityMode CompassMode { get; set; } = CompassVisibilityMode.Humans;
     }
 }
