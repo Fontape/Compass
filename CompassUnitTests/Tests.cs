@@ -1,4 +1,5 @@
 using Compass.API;
+using static NUnit.Framework.Assert;
 
 namespace CompassUnitTests
 {
@@ -12,19 +13,28 @@ namespace CompassUnitTests
         [Test]
         public void IsDegreesOverflowHandleCorrectly()
         {
-            Assert.LessOrEqual(400.GetOverflowedDegrees(), 360);
+            int handledDegrees = 489495495.GetOverflowedDegrees();
+
+            IsTrue(IsHandledDegreesValid(handledDegrees), $"{handledDegrees}");
         }
 
         [Test]
         public void IsDegreesNegativeOverflowHandleCorrectly()
         {
-            Assert.LessOrEqual((-200).GetOverflowedDegrees(), 360);
+            int handledDegrees = (-93939393).GetOverflowedDegrees();
+
+            IsTrue(IsHandledDegreesValid(handledDegrees), $"{handledDegrees}");
         }
 
         [Test]
-        public void IsDegreesNegativeOverflowHandleCorrectly()
+        public void IsDegreesNonOverflowHandleCorrectly()
         {
-            Assert.LessOrEqual((-200).GetOverflowedDegrees(), 360);
+            int handledDegrees = 360.GetOverflowedDegrees();
+
+            IsTrue(IsHandledDegreesValid(handledDegrees), $"{handledDegrees}");
         }
+
+        private static bool IsHandledDegreesValid(int handledDegrees) =>
+            handledDegrees is >= 0 and <= 360;
     }
 }

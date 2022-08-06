@@ -5,13 +5,16 @@ using Exiled.API.Features;
 namespace Compass.API
 {
     public static class Extensions
-    {
-        public static int GetOverflowedDegrees(this int degrees) => degrees switch
+    { 
+        public static int GetOverflowedDegrees(this int degrees) 
         {
-            < 0 => 360 + degrees,
-            > 360 => degrees - 360,
-            _ => degrees
-        };
+            return degrees switch
+            {
+                < 0 => degrees % 360 + 360,
+                > 360 => degrees % 360,
+                _ => degrees
+            };
+        }
 
         public static string GetCardinalDirection(this int degrees) => degrees switch
         {
