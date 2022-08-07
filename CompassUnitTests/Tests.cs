@@ -9,24 +9,27 @@ namespace CompassUnitTests
         [Test]
         public void IsDegreesOverflowHandleCorrectly()
         {
-            int handledDegrees = 489495495.GetOverflowedDegrees();
+            const int Degrees = 489495495;
 
+            int handledDegrees = Degrees.GetOverflowedDegrees();
             That(IsHandledDegreesValid(handledDegrees), Is.True, $"{handledDegrees}");
         }
 
         [Test]
         public void IsDegreesNegativeOverflowHandleCorrectly()
         {
-            int handledDegrees = (-93939393).GetOverflowedDegrees();
+            const int Degrees = -93939393;
 
+            int handledDegrees = Degrees.GetOverflowedDegrees();
             That(IsHandledDegreesValid(handledDegrees), Is.True, $"{handledDegrees}");
         }
 
         [Test]
         public void IsDegreesNonOverflowHandleCorrectly()
         {
-            int handledDegrees = 360.GetOverflowedDegrees();
+            const int Degrees = 360;
 
+            int handledDegrees = Degrees.GetOverflowedDegrees();
             That(IsHandledDegreesValid(handledDegrees), Is.True, $"{handledDegrees}");
         }
 
