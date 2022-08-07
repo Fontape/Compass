@@ -1,6 +1,5 @@
-﻿using System;
-using System.Text;
-using Compass.API.Enums;
+﻿using Compass.API.Enums;
+using Compass.API.Interfaces;
 using Exiled.API.Features;
 using Mirror;
 using UnityEngine;
@@ -14,8 +13,12 @@ namespace Compass.API.Features
 
         private Player _compassViewer;
         private float _secondsToNextCompassBroadcast;
+        private IReadOnlyWorldSidesTranslations _worldSidesTranslations;
 
         public void Awake() => _compassViewer = Player.Get(gameObject);
+
+        public void SetupTranslations(IReadOnlyWorldSidesTranslations worldSidesTranslations) =>
+            _worldSidesTranslations = worldSidesTranslations;
 
         public void FixedUpdate()
         {
@@ -39,7 +42,7 @@ namespace Compass.API.Features
                 true);
         }
 
-        private static string GetCompassBroadcastText(int viewerRotation)
+        private string GetCompassBroadcastText(int viewerRotation)
         {
             int leftDegrees = (viewerRotation - DegreesFromBroadcastMiddle).GetOverflowedDegrees();
             int rightDegrees = (viewerRotation + DegreesFromBroadcastMiddle).GetOverflowedDegrees();
@@ -47,17 +50,24 @@ namespace Compass.API.Features
             var compassLine = new string('|', 60);
             var longSpaceString = new string(' ', 10);
 
-            return $"<b><size=24>{viewerRotation.GetWorldSide()}" +
+            return $"<b><size=24>{viewerRotation.GetWorldSide(_worldSidesTranslations)}" +
                    $"\n{compassLine}</size></b>" +
                    $"\n<size=32><color=#ccc>{leftDegrees}°</color></size>{longSpaceString}<b>{viewerRotation}°</b>{longSpaceString}<size=32><color=#ccc>{rightDegrees}°</color></size>";
         }
 
         private bool IsCompassEnabled()
         {
+            if (_worldSidesTranslations == null)
+            {
+                return false;
+            }
+
             switch (CompassPlugin.CompassVisibilityMode)
             {
-                case CompassVisibilityMode.FirearmHolders when _compassViewer.CurrentItem == null || _compassViewer.CurrentItem.IsWeapon == false:
-                case CompassVisibilityMode.SquadMembers when _compassViewer.Role.Team != Team.MTF && _compassViewer.Role.Team != Team.CHI:
+                case CompassVisibilityMode.FirearmHolders
+                    when _compassViewer.CurrentItem == null || _compassViewer.CurrentItem.IsWeapon == false:
+                case CompassVisibilityMode.SquadMembers
+                    when _compassViewer.Role.Team != Team.MTF && _compassViewer.Role.Team != Team.CHI:
                     return false;
 
                 case CompassVisibilityMode.Humans:

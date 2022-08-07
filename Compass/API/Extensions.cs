@@ -1,27 +1,25 @@
 ﻿using System;
 using Compass.API.Features;
+using Compass.API.Interfaces;
 using Exiled.API.Features;
 
 namespace Compass.API
 {
     public static class Extensions
-    { 
-        public static int GetOverflowedDegrees(this int degrees) 
+    {
+        public static int GetOverflowedDegrees(this int degrees) => degrees switch
         {
-            return degrees switch
-            {
-                < 0 => degrees % 360 + 360,
-                > 360 => degrees % 360,
-                _ => degrees
-            };
-        }
+            < 0 => degrees % 360 + 360,
+            > 360 => degrees % 360,
+            _ => degrees
+        };
 
-        public static string GetWorldSide(this int degrees) => degrees switch
+        public static string GetWorldSide(this int degrees, IReadOnlyWorldSidesTranslations translations) => degrees switch
         {
-            >= 0 and <= 90 => "СЕВЕР",
-            > 90 and <= 180 => "ВОСТОК",
-            > 180 and <= 270 => "ЮГ",
-            > 270 and <= 360 => "ЗАПАД",
+            >= 0 and <= 90 => translations.North,
+            > 90 and <= 180 => translations.East,
+            > 180 and <= 270 => translations.South,
+            > 270 and <= 360 => translations.West,
             _ => throw new InvalidOperationException()
         };
 
