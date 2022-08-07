@@ -16,7 +16,7 @@ namespace Compass.API
             };
         }
 
-        public static string GetCardinalDirection(this int degrees) => degrees switch
+        public static string GetWorldSide(this int degrees) => degrees switch
         {
             >= 0 and <= 90 => "СЕВЕР",
             > 90 and <= 180 => "ВОСТОК",

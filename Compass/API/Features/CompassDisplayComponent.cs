@@ -9,8 +9,11 @@ namespace Compass.API.Features
 {
     internal class CompassDisplayComponent : NetworkBehaviour
     {
+        private const int DegreesFromBroadcastMiddle = 20;
+        private const float DegreesBroadcastUpdateRate = 0.1f;
+
         private Player _compassViewer;
-        private float _secondsToNextTick;
+        private float _secondsToNextCompassBroadcast;
 
         public void Awake() => _compassViewer = Player.Get(gameObject);
 
@@ -21,38 +24,32 @@ namespace Compass.API.Features
                 return;
             }
 
-            if (_secondsToNextTick < 0.1f)
+            if (_secondsToNextCompassBroadcast < DegreesBroadcastUpdateRate)
             {
-                _secondsToNextTick += Time.deltaTime;
+                _secondsToNextCompassBroadcast += Time.deltaTime;
                 return;
             }
 
+            _secondsToNextCompassBroadcast = 0;
             var viewerRotation = (int)_compassViewer.Rotation.y;
-            _secondsToNextTick = 0;
 
             _compassViewer.Broadcast(1,
-                $"{DrawCompassLine(viewerRotation)}",
+                $"{GetCompassBroadcastText(viewerRotation)}",
                 Broadcast.BroadcastFlags.Monospaced,
                 true);
         }
 
-        private static string DrawCompassLine(int degrees)
+        private static string GetCompassBroadcastText(int viewerRotation)
         {
-            int leftDegrees = (degrees - 45).GetOverflowedDegrees();
-            int rightDegrees = (degrees + 45).GetOverflowedDegrees();
+            int leftDegrees = (viewerRotation - DegreesFromBroadcastMiddle).GetOverflowedDegrees();
+            int rightDegrees = (viewerRotation + DegreesFromBroadcastMiddle).GetOverflowedDegrees();
 
-            var lineBuilder = new StringBuilder();
+            var compassLine = new string('|', 60);
+            var longSpaceString = new string(' ', 10);
 
-            for (var i = 0; i < 60; i++)
-            {
-                lineBuilder.Append("|");
-            }
-
-            var longSpaceBuilder = new string(' ', 10);
-
-            return $"<b><size=24>{degrees.GetCardinalDirection()}" +
-                   $"\n{lineBuilder}</size></b>" +
-                   $"\n<size=32><color=#ccc>{leftDegrees}°</color></size>{longSpaceBuilder}<b>{degrees}°</b>{longSpaceBuilder}<size=32><color=#ccc>{rightDegrees}°</color></size>";
+            return $"<b><size=24>{viewerRotation.GetWorldSide()}" +
+                   $"\n{compassLine}</size></b>" +
+                   $"\n<size=32><color=#ccc>{leftDegrees}°</color></size>{longSpaceString}<b>{viewerRotation}°</b>{longSpaceString}<size=32><color=#ccc>{rightDegrees}°</color></size>";
         }
 
         private bool IsCompassEnabled()
