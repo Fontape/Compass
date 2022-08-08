@@ -1,4 +1,10 @@
 # Compass
+[![build ci norules](https://github.com/Fontape/Compass/actions/workflows/build-ci-norules.yml/badge.svg)](https://github.com/Fontape/Compass/actions/workflows/build-ci-norules.yml)
+<a href="https://github.com/Fontape/Compass/releases">
+  <img src="https://img.shields.io/github/release/Fontape/Compass/all.svg?style=flat" alt="GitHub Releases">
+</a>
+![Github All Downloads](https://img.shields.io/github/downloads/Fontape/Compass/total.svg?style=flat)
+![Github Commits](https://img.shields.io/github/commit-activity/w/Fontape/Compass/main)
 ### Description
 
 This plugin brings a <b>compass</b> to the SCP: Secret Laboratory. The compass shows the players the degrees and the direction they are facing. 
