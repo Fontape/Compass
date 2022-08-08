@@ -7,7 +7,7 @@ on:
 env:
   EXILED_Plugins: ${{ github.workspace }}/EXILED_Plugins/Plugins
   SCP_Files: ${{ github.workspace }}/EXILED_Plugins/References
-  EXILED_PLUGIN_FILE: ${{ github.workspace }}/Compass.sln
+  EXILED_PLUGIN_FILE: ${{ github.workspace }}/Compass/Compass.csproj
   PLUGIN_NAME: Compass
   REPOSITORY_WITH_PLUGINS: Fontape/SCP-SL-NoRules
   REPOSITORY_PLUGINS_BRANCH: main
