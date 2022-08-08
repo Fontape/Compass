@@ -1,0 +1,67 @@
+name: build cd norules
+
+on:
+  release:
+    types: [published]
+
+env:
+  EXILED_Plugins: ${{ github.workspace }}/EXILED_Plugins/Plugins
+  SCP_Files: ${{ github.workspace }}/EXILED_Plugins/References
+  EXILED_PLUGIN_FILE: ${{ github.workspace }}/Compass.sln
+  PLUGIN_NAME: Compass
+  REPOSITORY_WITH_PLUGINS: Fontape/SCP-SL-NoRules
+  REPOSITORY_PLUGINS_BRANCH: main
+  
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    -
+      name: disable compression
+      run: git config --global core.compression 0
+    - 
+      name: Checkout
+      uses: actions/checkout@v3
+    -
+      name: Get plugins
+      uses: actions/checkout@v3
+      with:
+        repository: ${{ env.REPOSITORY_WITH_PLUGINS }}
+        ssh-key: ${{ secrets.GIT_KEY_DEPLOY_NORULES }}
+        ref: ${{ env.REPOSITORY_PLUGINS_BRANCH }}
+        path: 'EXILED_Plugins'
+    - 
+       name: Setup .NET Core SDK
+       uses: actions/setup-dotnet@v1.7.2
+    - 
+       name: Setup Nuget
+       uses: nuget/setup-nuget@v1
+    - 
+       name: Restore Packages
+       run: nuget restore ${{ env.EXILED_PLUGIN_FILE }}
+    - 
+       name: Build
+       run: dotnet build --configuration Release --no-restore ${{ env.EXILED_PLUGIN_FILE }}
+    - 
+       name: Upload artifact
+       uses: actions/upload-artifact@v3
+       with:
+        name: plugin
+        path: Compass/bin/Release
+    -
+       name: Commit files
+       shell: pwsh
+       run: | 
+         cd ${{ env.EXILED_Plugins }}
+         git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+         git config --local user.name "github-actions[bot]"
+         git commit -m "Deploy plugin ${{ env.PLUGIN_NAME }}" -a
+    - 
+       name: Push changes
+       uses: ad-m/github-push-action@master
+       with:
+        ssh: true
+        branch: ${{ env.REPOSITORY_PLUGINS_BRANCH }}
+        repository: ${{ env.REPOSITORY_WITH_PLUGINS }}
+        directory: ${{ env.EXILED_Plugins }}
