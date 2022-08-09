@@ -7,7 +7,7 @@
 ![Github Commits](https://img.shields.io/github/commit-activity/w/Fontape/Compass/main)
 ### Description
 
-This plugin brings a <b>compass</b> to the SCP: Secret Laboratory. The compass shows the players the degrees and the direction they are facing. 
+This plugin adds a <b>compass</b> to the SCP: Secret Laboratory. The compass shows to player facing azimuth and cardinal direction. 
 This can help players in skirmishes. For example, they will be able to draw the attention of allies to the direction in which they noticed the enemy.<br/>
 Also, compass just adds some charm to the game.
 
@@ -27,9 +27,9 @@ Humans | Implies that the compass will be visible to all players of the human cl
 FirearmHolders | Compass will only be visible to players who hold a firearm.
 SquadMembers | Compass will be visible to players whose classes belong to MTF or CI team.
 
-### Translation 
+### Translations
 
-Plugin supports a world sides translations.
+Plugin supports a cardinal sides translations.
 
 ### Explanation of `== false`
 
