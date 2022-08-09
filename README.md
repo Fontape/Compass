@@ -30,3 +30,9 @@ SquadMembers | Compass will be visible to players whose classes belong to MTF or
 ### Translation 
 
 Plugin supports a world sides translations.
+
+### Explanation of `== false`
+
+In code, you may come across the use comparison of `false` via `==`. This is one of the our code notations - we don't use `!`, to make code <b>cleaner</b>.
+
+It is unusual for many developers to put up with this, but, in this case, this is the idea of the plugin authors, and <b>not</b> bad code.
