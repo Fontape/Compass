@@ -27,9 +27,9 @@ Humans | Implies that the compass will be visible to all players of the human cl
 FirearmHolders | Compass will only be visible to players who hold a firearm.
 SquadMembers | Compass will be visible to players whose classes belong to MTF or CI team.
 
-### Translation 
+### Translations
 
-Plugin supports a world sides translations.
+Plugin supports a cardinal sides translations.
 
 ### Explanation of `== false`
 
